@@ -16,7 +16,7 @@
 
 MODEL=$1
 AVA=$2
-ROOT="/home/ubuntu/TinyLLava/dataset" #change path
+ROOT="./" #change path
 AVA_BENCH="$ROOT/AVA-Bench/train"
 
 # =============================================================================
@@ -122,7 +122,15 @@ RUN_NAME="${MODEL}_qwen2_lora_epoch_${EP}_${CAP[$AVA]}"
 DATA_PATH="$AVA_BENCH/${DATA[$AVA]}"
 IMAGE_PATH="$AVA_BENCH/"
 OUTPUT_DIR="$ROOT/checkpoints/${OUTREL[$AVA]}/$RUN_NAME"
-PRETRAINED_MODEL_PATH="$ROOT/checkpoints/pre_trained_models/$PRETRAINED_NAME"
+PRETRAINED_MODEL_PATH="$ROOT/checkpoints/fine_tuned_models/$PRETRAINED_NAME"
+
+# ---- auto-download data from HuggingFace (act13/AVA-Bench) if missing ---------
+# The capability dir name (== HF config name) is the parent dir of DATA[$AVA].
+HF_CAP="$(dirname "${DATA[$AVA]}")"
+if [ ! -f "$DATA_PATH" ]; then
+    echo "==> $DATA_PATH not found; preparing '$HF_CAP' from HuggingFace act13/AVA-Bench"
+    python scripts/train/finetune_lora/prepare_data.py --cap "$HF_CAP" --out-root "$AVA_BENCH"
+fi
 
 echo "==> LoRA finetune | model=$MODEL ($VT_VERSION) | ava=$AVA"
 echo "    run_name=$RUN_NAME"

@@ -47,7 +47,7 @@ pip install timm==1.0.15
 pip install .
 pip install "setuptools<70" wheel packaging ninja
 pip install flash-attn==2.6.3 --no-build-isolation
-pip install "safetensors<0.5"
+pip install "safetensors<0.5" datasets
 ```
 
 ## Get Started
@@ -56,7 +56,8 @@ pip install "safetensors<0.5"
 
 For **first** and **second** stage training,
 please refer to the [Data Preparation](https://tinyllava-factory.readthedocs.io/en/latest/Prepare%20Datasets.html) section in TinyLLaVA's [Documenation](https://tinyllava-factory.readthedocs.io/en/latest/).
-For finetuning on our AVA-Bench in third stage, refer to 
+For finetuning on our AVA-Bench in third stage, refer to [![hf_space](https://img.shields.io/badge/%F0%9F%A4%97-Training%20Dataset-blue?link=https%3A%2F%2Fhuggingface.co%2Fdatasets%2Fact13%2FAVA-Bench
+)](https://huggingface.co/datasets/act13/AVA-Bench). The code will automatically download the dataset to train on it.
 
 #### 2. Train
 - Stage 1 :To pretrain a Vision Foundation Model using Qwen2 0.5B. 
@@ -73,7 +74,8 @@ bash scripts/train/pretrain/pretrain.sh facebook/dinov2-large
 ```bash
 bash scripts/train/finetune/finetune.sh facebook/dinov2-large
 ```
-- Stage 3: To finetune a Vision Foundation Model using Qwen2 0.5B on each of our `AVA-Bench`. Here's an example for training DINOv2 model trained for counting AVA. Please see `scripts/train/finetune_lora/bash.sh` on how to train for other AVAs.
+- Stage 3: To finetune a Vision Foundation Model using Qwen2 0.5B on each of our `AVA-Bench`. Change path of `ROOT` in `scripts/train/finetune_lora/bash.sh`.
+  - Here's an example for training DINOv2 model trained for counting AVA. Please see `scripts/train/finetune_lora/bash.sh` on how to train for other AVAs.
 ```
 bash scripts/train/finetune_lora/bash.sh dinov2 counting
 ```
