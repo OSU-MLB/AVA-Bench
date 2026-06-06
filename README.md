@@ -11,7 +11,7 @@
 
 
 ## &#x1F525; Summary
-- 
+- **AVA-Bench is a diagnostic benchmark for Vision Foundation Models (VFMs)** that breaks visual understanding into **14 Atomic Visual Abilities**, such as localization, counting, depth, OCR, and spatial reasoning. Instead of asking which VFM is best overall, AVA-Bench reveals where each model excels or fails, enabling principled VFM selection for downstream applications.
 
 ## Contents
 - [Installation and Requirements](#installation-and-requirements)
